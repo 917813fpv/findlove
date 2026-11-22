@@ -3,41 +3,78 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#fff8f3">
-<title>findlove · 缘分测试</title>
-<meta name="description" content="findlove：测测你和 TA 的缘分，纯属好玩。">
+<meta name="theme-color" content="#fff6f1">
+<title>找对象—— · findlove</title>
+<meta name="description" content="findlove：一朵可以发消息的云。不用注册，点别人的气泡就能私聊回复。">
+<link rel="icon" href="/favicon.svg">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div class="hearts" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+<div id="splash" aria-hidden="true">
+  <div class="splash-inner">
+    <p class="splash-kicker">FINDLOVE · 2027</p>
+    <h1 class="splash-title"><span>找</span><span>对</span><span>象</span><span class="dash">——</span></h1>
+    <p class="splash-sub">不用注册，发个气泡，等人来捡。</p>
+  </div>
+</div>
+
 <header class="top">
   <a class="brand" href="/">findlove<span>.</span></a>
-  <span class="tag">搞着玩</span>
+  <div class="top-actions">
+    <button class="ghost" id="inboxBtn" type="button">回复 <em id="unread">0</em></button>
+    <button class="post-btn" id="postBtn" type="button">发个气泡</button>
+  </div>
 </header>
-<main class="wrap">
-  <section class="copy">
-    <p class="kicker">A TINY LOVE TEST</p>
-    <h1>测测你们的<br>缘分指数。</h1>
-    <p class="lede">输入两个名字，剩下的交给玄学。同一对名字永远同一个结果，截图发给 TA 就行。</p>
-    <ul class="notes"><li>不登录</li><li>不上传</li><li>只在你的浏览器里算</li></ul>
-  </section>
-  <section class="card">
-    <div class="form" id="form">
-      <label class="field"><span>你的名字</span><input id="a" maxlength="16" placeholder="例如：小满" autocomplete="off"></label>
-      <label class="field"><span>TA 的名字</span><input id="b" maxlength="16" placeholder="例如：阿澈" autocomplete="off"></label>
-      <button class="go" id="go" type="button">开始匹配</button>
-      <p class="hint" id="hint"></p>
-    </div>
-    <div class="result" id="result" hidden>
-      <p class="score-label">缘分指数</p>
-      <div class="ring" id="ring"><span id="score">0</span><em>%</em></div>
-      <p class="verdict" id="verdict"></p>
-      <p class="pair" id="pair"></p>
-      <div class="actions"><button class="ghost" id="copy" type="button">复制结果</button><button class="ghost" id="again" type="button">换一对</button></div>
-    </div>
-  </section>
+
+<main class="cloud-wrap">
+  <div class="cloud-meta"><span id="count">0 个气泡在飘</span><span class="hint-line">点一个气泡，回 TA</span></div>
+  <div id="cloud" class="cloud" aria-live="polite"></div>
+  <div id="empty" class="empty" hidden>
+    <p>云上还很安静。</p>
+    <button class="post-btn" id="emptyPost" type="button">发第一个气泡</button>
+  </div>
 </main>
-<footer class="foot"><span>findlove · 2027</span><span>只是玩玩，别当真</span></footer>
+
+<div class="modal" id="compose" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="composeTitle">
+    <button class="x" data-close type="button" aria-label="关闭">×</button>
+    <h2 id="composeTitle">发个气泡</h2>
+    <label class="field"><span>怎么称呼</span><input id="nick" maxlength="16" placeholder="随便起一个" autocomplete="off"></label>
+    <div class="field"><span>性别</span><div class="genders" id="genders"></div></div>
+    <div class="field age-field">
+      <span>年龄 <b id="ageOut">18</b></span>
+      <div class="wheel-wrap">
+        <div class="wheel" id="wheel" tabindex="0" role="slider" aria-label="年龄" aria-valuemin="-99" aria-valuemax="200" aria-valuenow="18">
+          <div class="wheel-ring"></div>
+          <div class="wheel-ticks" id="ticks"></div>
+          <div class="wheel-knob" id="knob"></div>
+          <div class="wheel-center"><b id="ageBig">18</b><em>岁</em></div>
+        </div>
+        <p class="wheel-note">可以转到负数，年龄只是个玩笑。</p>
+      </div>
+    </div>
+    <label class="field"><span>说点什么</span><textarea id="text" maxlength="120" rows="3" placeholder="今晚有人一起飞吗？"></textarea></label>
+    <p class="err" id="err"></p>
+    <button class="submit" id="send" type="button">放上云</button>
+  </div>
+</div>
+
+<div class="modal" id="panelModal" hidden>
+  <div class="sheet panel" role="dialog" aria-modal="true">
+    <button class="x" data-close type="button" aria-label="关闭">×</button>
+    <div id="panelBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="inboxModal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true">
+    <button class="x" data-close type="button" aria-label="关闭">×</button>
+    <h2>有人回你</h2>
+    <div id="inboxList" class="inbox-list"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
 <script src="/love.js"></script>
 </body>
 </html>
