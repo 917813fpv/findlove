@@ -11,10 +11,12 @@
 </head>
 <body>
 <div id="splash" aria-hidden="true">
+  <div class="splash-glow"></div>
   <div class="splash-inner">
-    <p class="splash-kicker">一个很小的交友实验</p>
-    <h1 class="splash-title"><span>找</span><span>对</span><span>象</span><span class="dash">——</span></h1>
-    <p class="splash-sub">不用注册，发个气泡，等人来捡。</p>
+    <p class="splash-mark">findlove</p>
+    <h1 class="splash-title"><span>找</span><span>对</span><span>象</span></h1>
+    <i class="splash-line"></i>
+    <p class="splash-sub">发个气泡，等人来捡</p>
   </div>
 </div>
 
@@ -41,12 +43,10 @@
     <h2 id="composeTitle">发个气泡</h2>
     <label class="field"><span>怎么称呼</span><input id="nick" maxlength="16" placeholder="随便起一个" autocomplete="off"></label>
     <div class="field media-field">
-      <span>头像和主页图（自动压缩）</span>
+      <span>头像（自动压缩，可跳过）</span>
       <div class="media-row">
         <label class="pick avatar-pick"><input type="file" id="avatarInput" accept="image/*" hidden><span id="avatarPrev">＋ 头像</span></label>
-        <label class="pick"><input type="file" id="picsInput" accept="image/*" multiple hidden><span>＋ 主页图</span></label>
       </div>
-      <div class="pics" id="picsPrev"></div>
     </div>
     <div class="field"><span>性别</span><div class="genders" id="genders"></div></div>
     <div class="field age-field">
