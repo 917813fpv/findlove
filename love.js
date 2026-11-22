@@ -54,13 +54,13 @@
   wheel.addEventListener('wheel', function (e) { e.preventDefault(); setAge(state.age + (e.deltaY > 0 ? -1 : 1)); }, { passive: false });
 
   /* cloud */
-  var SLOTS = [[7,9],[29,6],[53,10],[77,7],[3,40],[26,38],[51,42],[76,38],[99,40],[10,72],[33,70],[58,74],[82,70]];
+  var SLOTS = [[8,14],[70,11],[36,40],[90,44],[15,66],[56,68],[80,80],[28,84],[50,18],[6,42],[64,44],[44,88]];
   function bubbleStyle(b, i) {
     var h = hash(b.id || String(i));
     var slot = SLOTS[i % SLOTS.length];
     var jx = ((h >> 3) % 3) - 1, jy = ((h >> 5) % 3) - 1;
-    var size = 118 + Math.min(52, String(b.text || '').length * 2 + (h % 18));
-    var left = Math.max(1, Math.min(88, slot[0] + jx * 1.2));
+    var size = 148 + Math.min(64, String(b.text || '').length * 2 + (h % 22));
+    var left = Math.max(1, Math.min(84, slot[0] + jx * 1.2));
     var top = Math.max(2, Math.min(80, slot[1] + jy * 1.5));
     return 'left:' + left + '%;top:' + top + '%;width:' + size + 'px;height:' + size + 'px;animation-delay:-' + (h % 9) + 's';
   }
