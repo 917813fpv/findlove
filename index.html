@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff8f3">
+<title>findlove · 缘分测试</title>
+<meta name="description" content="findlove：测测你和 TA 的缘分，纯属好玩。">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="hearts" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+<header class="top">
+  <a class="brand" href="/">findlove<span>.</span></a>
+  <span class="tag">搞着玩</span>
+</header>
+<main class="wrap">
+  <section class="copy">
+    <p class="kicker">A TINY LOVE TEST</p>
+    <h1>测测你们的<br>缘分指数。</h1>
+    <p class="lede">输入两个名字，剩下的交给玄学。同一对名字永远同一个结果，截图发给 TA 就行。</p>
+    <ul class="notes"><li>不登录</li><li>不上传</li><li>只在你的浏览器里算</li></ul>
+  </section>
+  <section class="card">
+    <div class="form" id="form">
+      <label class="field"><span>你的名字</span><input id="a" maxlength="16" placeholder="例如：小满" autocomplete="off"></label>
+      <label class="field"><span>TA 的名字</span><input id="b" maxlength="16" placeholder="例如：阿澈" autocomplete="off"></label>
+      <button class="go" id="go" type="button">开始匹配</button>
+      <p class="hint" id="hint"></p>
+    </div>
+    <div class="result" id="result" hidden>
+      <p class="score-label">缘分指数</p>
+      <div class="ring" id="ring"><span id="score">0</span><em>%</em></div>
+      <p class="verdict" id="verdict"></p>
+      <p class="pair" id="pair"></p>
+      <div class="actions"><button class="ghost" id="copy" type="button">复制结果</button><button class="ghost" id="again" type="button">换一对</button></div>
+    </div>
+  </section>
+</main>
+<footer class="foot"><span>findlove · 2027</span><span>只是玩玩，别当真</span></footer>
+<script src="/love.js"></script>
+</body>
+</html>
