@@ -54,13 +54,14 @@
   wheel.addEventListener('wheel', function (e) { e.preventDefault(); setAge(state.age + (e.deltaY > 0 ? -1 : 1)); }, { passive: false });
 
   /* cloud */
+  var SLOTS = [[7,9],[29,6],[53,10],[77,7],[3,40],[26,38],[51,42],[76,38],[99,40],[10,72],[33,70],[58,74],[82,70]];
   function bubbleStyle(b, i) {
     var h = hash(b.id || String(i));
-    var size = 132 + (h % 60);
-    var cols = 4, rows = 3;
-    var col = h % cols, row = Math.floor(h / cols) % rows;
-    var left = 6 + col * (88 / cols) + ((h >> 3) % 5);
-    var top = 8 + row * (74 / rows) + ((h >> 5) % 5);
+    var slot = SLOTS[i % SLOTS.length];
+    var jx = ((h >> 3) % 3) - 1, jy = ((h >> 5) % 3) - 1;
+    var size = 118 + Math.min(52, String(b.text || '').length * 2 + (h % 18));
+    var left = Math.max(1, Math.min(88, slot[0] + jx * 1.2));
+    var top = Math.max(2, Math.min(80, slot[1] + jy * 1.5));
     return 'left:' + left + '%;top:' + top + '%;width:' + size + 'px;height:' + size + 'px;animation-delay:-' + (h % 9) + 's';
   }
   function renderCloud() {
