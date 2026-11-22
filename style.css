@@ -120,3 +120,18 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;background-im
 .splash-title span{filter:drop-shadow(0 6px 0 rgba(255,77,109,.14))}
 .top-actions .ghost em{background:#ffe3ea;border-radius:99px;padding:1px 6px}
 @media (max-width:640px){.bubble{border-radius:22px!important;padding:44px 12px 46px}.b-strip{border-radius:0 0 22px 22px}}
+
+/* review pass: solid surfaces, readable photos, cute not glassy */
+:root{--accent:#e63a5c}
+.splash-kicker{font:400 13px/1.4 "MiSans","PingFang SC",sans-serif;letter-spacing:.02em;color:var(--muted)}
+.bubble{backdrop-filter:none;background:rgba(255,255,255,.9)}
+.bubble.g-男{background:#dcecff}.bubble.g-女{background:#ffe3ec}.bubble.g-其他{background:#e9e3ff}.bubble.g-双性{background:#fff0cc}.bubble.g-男同{background:#d8f6ea}.bubble.g-女同{background:#ffe2d8}.bubble.g-沃尔玛购物袋{background:#e6f3d8}
+.b-strip{height:54px;background:rgba(255,255,255,.85);border-top:0}
+.b-strip .track{gap:6px;padding:6px}
+.b-strip img{width:42px;height:42px;border-radius:12px}
+.submit,.post-btn{background:#e63a5c}
+.post-btn{box-shadow:0 4px 0 #c22a49}
+.submit{box-shadow:0 4px 0 #c22a49}
+.genders button.on{background:#e63a5c;border-color:#e63a5c}
+.sheet h2,.splash-title{text-wrap:balance}
+@media (max-width:640px){.b-strip{border-radius:0 0 22px 22px}}
