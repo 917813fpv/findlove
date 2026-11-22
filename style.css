@@ -79,3 +79,5 @@ a{color:inherit;text-decoration:none}
   .wheel{width:200px;height:200px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+[hidden]{display:none!important}
