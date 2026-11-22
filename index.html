@@ -40,6 +40,14 @@
     <button class="x" data-close type="button" aria-label="关闭">×</button>
     <h2 id="composeTitle">发个气泡</h2>
     <label class="field"><span>怎么称呼</span><input id="nick" maxlength="16" placeholder="随便起一个" autocomplete="off"></label>
+    <div class="field media-field">
+      <span>头像和主页图（自动压缩）</span>
+      <div class="media-row">
+        <label class="pick avatar-pick"><input type="file" id="avatarInput" accept="image/*" hidden><span id="avatarPrev">＋ 头像</span></label>
+        <label class="pick"><input type="file" id="picsInput" accept="image/*" multiple hidden><span>＋ 主页图</span></label>
+      </div>
+      <div class="pics" id="picsPrev"></div>
+    </div>
     <div class="field"><span>性别</span><div class="genders" id="genders"></div></div>
     <div class="field age-field">
       <span>年龄 <b id="ageOut">18</b></span>
