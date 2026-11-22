@@ -1,10 +1,11 @@
 (function () {
   var API = 'https://create.yzbjfpv.com/api/findlove';
+  var MEDIA = 'https://create.yzbjfpv.com';
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
   var GENDERS = ['男', '女', '其他', '双性', '男同', '女同', '沃尔玛购物袋'];
   var AGE_MIN = -99, AGE_MAX = 200;
-  var state = { bubbles: [], gender: '其他', age: 18, tokens: [], current: null, avatar: '', pics: [] };
+  var state = { bubbles: [], gender: '其他', age: 18, tokens: [], current: null, avatar: '' };
 
   function load(k, d) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } }
   function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -71,10 +72,9 @@
       var el = document.createElement('button');
       el.type = 'button'; el.className = 'bubble g-' + b.gender;
       el.style.cssText = bubbleStyle(b, i);
-      var av = b.avatar ? '<img src="' + esc(b.avatar) + '" alt="">' : '<span>' + esc(b.nickname.slice(0, 1)) + '</span>';
-      var pics = (b.images || []);
-      var strip = pics.length ? '<div class="b-strip' + (pics.length < 3 ? ' single' : '') + '"><div class="track">' + pics.concat(pics).map(function (u) { return '<img src="' + esc(u) + '" alt="">'; }).join('') + '</div></div>' : '';
-      el.innerHTML = '<span class="b-avatar">' + av + '</span><span class="bn">' + esc(b.nickname) + '</span><span class="bm">' + esc(b.gender) + ' · ' + b.age + ' 岁</span><span class="bt">' + esc(b.text) + '</span>' + (b.replies ? '<i class="badge"></i>' : '') + strip;
+      var avSrc = b.avatar ? (b.avatar.indexOf('http') === 0 ? b.avatar : MEDIA + b.avatar) : '';
+      var av = avSrc ? '<img src="' + esc(avSrc) + '" alt="">' : '<span>' + esc(b.nickname.slice(0, 1)) + '</span>';
+      el.innerHTML = '<span class="b-avatar">' + av + '</span><span class="bn">' + esc(b.nickname) + '</span><span class="bm">' + esc(b.gender) + ' · ' + b.age + ' 岁</span><span class="bt">' + esc(b.text) + '</span>' + (b.replies ? '<i class="badge"></i>' : '');
       el.addEventListener('click', function () { openPanel(b); });
       cloud.appendChild(el);
     });
@@ -105,14 +105,14 @@
     var btn = this, nick = $('#nick').value.trim() || '匿名', text = $('#text').value.trim();
     if (text.length < 2) { $('#err').textContent = '写点什么再发'; return; }
     btn.disabled = true;
-    fetch(API + '/post', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nickname: nick, gender: state.gender, age: state.age, text: text, avatar: state.avatar, images: state.pics }) })
+    fetch(API + '/post', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nickname: nick, gender: state.gender, age: state.age, text: text, avatar: state.avatar }) })
       .then(function (r) { return r.json(); })
       .then(function (j) {
         btn.disabled = false;
         if (!j.success) { $('#err').textContent = j.error || '发失败了'; return; }
         state.tokens = load('fl_tokens', []); state.tokens.push({ id: j.data.id, token: j.data.token }); save('fl_tokens', state.tokens);
         save('fl_name', nick);
-        $('#text').value = ''; state.avatar = ''; state.pics = []; $('#avatarPrev').textContent = '＋ 头像'; renderPics(); closeModal($('#compose')); toast('已经放上云了'); loadCloud();
+        $('#text').value = ''; state.avatar = ''; $('#avatarPrev').textContent = '＋ 头像'; closeModal($('#compose')); toast('已经放上云了'); loadCloud();
       }).catch(function () { btn.disabled = false; $('#err').textContent = '网络不太好，再试一次'; });
   });
 
@@ -204,25 +204,5 @@
       $('#avatarPrev').innerHTML = '<img src="' + url + '" alt="">';
     }).catch(function () { toast('这张图读不了'); });
   });
-  $('#picsInput').addEventListener('change', function () {
-    var files = [].slice.call(this.files || []).slice(0, 6 - state.pics.length);
-    this.value = '';
-    files.forEach(function (f) {
-      compress(f, 900, 0.8).then(function (url) {
-        if (state.pics.length >= 6) return;
-        state.pics.push(url); renderPics();
-      }).catch(function () {});
-    });
-  });
-  function renderPics() {
-    var box = $('#picsPrev'); box.innerHTML = '';
-    state.pics.forEach(function (url, i) {
-      var d = document.createElement('div'); d.className = 'pic';
-      d.innerHTML = '<img src="' + url + '" alt=""><button type="button" aria-label="删除">×</button>';
-      d.querySelector('button').addEventListener('click', function () { state.pics.splice(i, 1); renderPics(); });
-      box.appendChild(d);
-    });
-  }
-
   var savedName = load('fl_name', ''); if (savedName) $('#nick').value = savedName;
 })();
